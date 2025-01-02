@@ -2,12 +2,15 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons'; // İkonları kullanmak için
+
 import HomeScreen from './src/screens/HomeScreen';
 import HotelDetailsScreen from './src/screens/HotelDetailScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
-
+import SettingsScreen from './src/screens/SettingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,14 +39,32 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: 'Ana Sayfa' }} // Ana Sayfa başlığı
+          options={({ navigation }) => ({
+            title: 'Ana Sayfa',
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                <Icon name="settings" size={25} color="#000" style={{ marginRight: 20 }} />
+              </TouchableOpacity>
+            ),
+          })}
         />
         <Stack.Screen
           name="HotelDetails"
           component={HotelDetailsScreen}
-          options={{ title: 'Otel Detayları' }} // Otel Detayları başlığı
+          options={({ navigation }) => ({
+            title: 'Otel Detayları',
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                <Icon name="settings" size={25} color="#000" style={{ marginRight: 20 }} />
+              </TouchableOpacity>
+            ),
+          })}
         />
-
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{ title: 'Ayarlar' }} // Ayarlar sayfası başlığı
+        />
         
       </Stack.Navigator>
     </NavigationContainer>
